@@ -35,6 +35,8 @@ locals {
       shape        = var.server_shape
       ocpus        = var.server_ocpus
       memory       = var.server_memory_in_gbs
+      bv_size      = var.server_boot_volume_size_in_gbs
+      bv_vpu       = var.server_boot_volume_vpus_per_gb
     }
     api = {
       display_name = "${var.prefix}-api-cluster"
@@ -42,6 +44,8 @@ locals {
       shape        = var.api_shape
       ocpus        = var.api_ocpus
       memory       = var.api_memory_in_gbs
+      bv_size      = var.api_boot_volume_size_in_gbs
+      bv_vpu       = var.api_boot_volume_vpus_per_gb
     }
     client = {
       display_name = "${var.prefix}-client-cluster"
@@ -49,6 +53,8 @@ locals {
       shape        = var.client_shape
       ocpus        = var.client_ocpus
       memory       = var.client_memory_in_gbs
+      bv_size      = var.client_boot_volume_size_in_gbs
+      bv_vpu       = var.client_boot_volume_vpus_per_gb
     }
   }
 
@@ -339,6 +345,8 @@ resource "oci_core_instance_configuration" "server" {
       source_details {
         source_type = "image"
         image_id    = var.custom_image_ocid
+        boot_volume_size_in_gbs   = local.cluster_defaults.server.bv_size
+        boot_volume_vpus_per_gb   = local.cluster_defaults.server.bv_vpu
       }
 
       create_vnic_details {
@@ -386,6 +394,8 @@ resource "oci_core_instance_configuration" "api" {
       source_details {
         source_type = "image"
         image_id    = var.custom_image_ocid
+        boot_volume_size_in_gbs   = local.cluster_defaults.server.bv_size
+        boot_volume_vpus_per_gb   = local.cluster_defaults.server.bv_vpu
       }
 
       create_vnic_details {
@@ -433,6 +443,8 @@ resource "oci_core_instance_configuration" "client" {
       source_details {
         source_type = "image"
         image_id    = var.custom_image_ocid
+        boot_volume_size_in_gbs   = local.cluster_defaults.client.bv_size
+        boot_volume_vpus_per_gb   = local.cluster_defaults.client.bv_vpu
       }
 
       create_vnic_details {

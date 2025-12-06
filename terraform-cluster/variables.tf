@@ -61,19 +61,19 @@ variable "consul_gossip_encryption_key" {
 variable "server_shape" {
   type        = string
   description = "Compute shape for Nomad/Consul server instances."
-  default     = "VM.Standard3.Flex"
+  default     = "BM.Standard3.64"
 }
 
 variable "server_ocpus" {
   type        = number
   description = "OCPU count for each server instance."
-  default     = 4
+  default     = 64
 }
 
 variable "server_memory_in_gbs" {
   type        = number
   description = "Memory allocation (GB) for each server instance."
-  default     = 16
+  default     = 1024
 }
 
 variable "server_desired_capacity" {
@@ -82,22 +82,34 @@ variable "server_desired_capacity" {
   default     = 3
 }
 
+variable "server_boot_volume_size_in_gbs" {
+  type        = number
+  description = "Boot Volume Size in GBs."
+  default     = 1024
+}
+
+variable "server_boot_volume_vpus_per_gb" {
+  type        = number
+  description = "Boot Volume VPUs per GB."
+  default     = 100
+}
+
 variable "api_shape" {
   type        = string
   description = "Compute shape for API pool instances."
-  default     = "VM.Standard3.Flex"
+  default     = "BM.Standard3.64"
 }
 
 variable "api_ocpus" {
   type        = number
   description = "OCPU count for each API pool instance."
-  default     = 4
+  default     = 64
 }
 
 variable "api_memory_in_gbs" {
   type        = number
   description = "Memory allocation (GB) for each API pool instance."
-  default     = 16
+  default     = 1024
 }
 
 variable "api_desired_capacity" {
@@ -106,22 +118,34 @@ variable "api_desired_capacity" {
   default     = 1
 }
 
+variable "api_boot_volume_size_in_gbs" {
+  type        = number
+  description = "Boot Volume Size in GBs."
+  default     = 1024
+}
+
+variable "api_boot_volume_vpus_per_gb" {
+  type        = number
+  description = "Boot Volume VPUs per GB."
+  default     = 100
+}
+
 variable "client_shape" {
   type        = string
   description = "Compute shape for client pool instances."
-  default     = "VM.Standard3.Flex"
+  default     = "BM.Standard3.64"
 }
 
 variable "client_ocpus" {
   type        = number
   description = "OCPU count for each client pool instance."
-  default     = 8
+  default     = 64
 }
 
 variable "client_memory_in_gbs" {
   type        = number
   description = "Memory allocation (GB) for each client pool instance."
-  default     = 64
+  default     = 1024
 }
 
 variable "client_desired_capacity" {
@@ -130,6 +154,17 @@ variable "client_desired_capacity" {
   default     = 1
 }
 
+variable "client_boot_volume_size_in_gbs" {
+  type        = number
+  description = "Boot Volume Size in GBs."
+  default     = 1024
+}
+
+variable "client_boot_volume_vpus_per_gb" {
+  type        = number
+  description = "Boot Volume VPUs per GB."
+  default     = 100
+}
 variable "defined_tags" {
   type        = map(string)
   description = "OCI defined tags applied to cluster resources."
