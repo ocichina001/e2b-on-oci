@@ -539,6 +539,7 @@ if [ -e /dev/oracleoci/oraclevdb ]
 then
     mkfs.ext4 /dev/oracleoci/oraclevdb
     echo "/dev/oracleoci/oraclevdb /mnt/disks/fc-envs/v1 ext4 defaults,_netdev,nofail 0 2" >> /etc/fstab
+    mount /dev/oracleoci/oraclevdb /mnt/disks/fc-envs/v1
 fi
 
 
