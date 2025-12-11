@@ -157,8 +157,6 @@ variable "client_desired_capacity" {
   default     = 1
 }
 
-<<<<<<< Updated upstream
-=======
 variable "client_boot_volume_size_in_gbs" {
   type        = number
   description = "Boot Volume Size in GBs."
