@@ -534,6 +534,14 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now docker.socket
 sudo systemctl restart docker || sudo systemctl start docker
 
+# Format data volume if exists
+if [ -e /dev/oracleoci/oraclevdb ]
+then
+    mkfs.ext4 /dev/oracleoci/oraclevdb
+    echo "/dev/oracleoci/oraclevdb /mnt/disks/fc-envs/v1 ext4 defaults,_netdev,nofail 0 2" >> /etc/fstab
+fi
+
+
 # Install Go
 if ! command -v go &> /dev/null; then
     cd /tmp

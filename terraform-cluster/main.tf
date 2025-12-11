@@ -23,6 +23,7 @@ locals {
   consul_client_run_script_b64 = filebase64("${path.module}/scripts/run-consul-client.sh.gz")
   nomad_client_run_script_b64  = filebase64("${path.module}/scripts/run-nomad-client.sh.gz")
   udp_protocol          = "17"
+  client_bm = startswith(var.client_shape, "BM.")
 
   availability_domains = [
     for ad in data.oci_identity_availability_domains.ads.availability_domains : ad.name
@@ -420,6 +421,35 @@ resource "oci_core_instance_configuration" "client" {
   instance_details {
     instance_type = "compute"
 
+    dynamic "block_volumes" {
+       for_each = var.client_data_volume ? [1] : []
+       content {
+          #Optional
+          attach_details {
+                #Required
+                type = local.client_bm ? "iscsi" : "paravirtualized"
+                is_read_only = false
+                device = "/dev/oracleoci/oraclevdb"
+            }
+
+          create_details {
+
+                  #Optional
+                  autotune_policies {
+                      #Required
+                      autotune_type = "PERFORMANCE_BASED"
+
+                      #Optional
+                      max_vpus_per_gb = 120
+                  }
+                  display_name = "client_data_volume"
+                  size_in_gbs = var.client_data_volume_size_in_gbs
+                  compartment_id = var.compartment_ocid
+                  vpus_per_gb = var.client_data_volume_vpus_per_gb
+            }
+        }
+      }
+
     launch_details {
       compartment_id = var.compartment_ocid
       display_name   = "${var.prefix}-client"
@@ -428,6 +458,19 @@ resource "oci_core_instance_configuration" "client" {
       shape_config {
         ocpus         = local.cluster_defaults.client.ocpus
         memory_in_gbs = local.cluster_defaults.client.memory
+      }
+
+
+      dynamic "agent_config" {
+       for_each = local.client_bm ? [1] : []
+       content {
+            is_management_disabled = false
+            plugins_config {
+                #Required
+                desired_state = "ENABLED"
+                name = "Block Volume Management"
+            }
+       }
       }
 
       source_details {

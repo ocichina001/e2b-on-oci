@@ -82,6 +82,21 @@ variable "server_desired_capacity" {
   default     = 3
 }
 
+<<<<<<< Updated upstream
+=======
+variable "server_boot_volume_size_in_gbs" {
+  type        = number
+  description = "Boot Volume Size in GBs."
+  default     = 50
+}
+
+variable "server_boot_volume_vpus_per_gb" {
+  type        = number
+  description = "Boot Volume VPUs per GB."
+  default     = 10
+}
+
+>>>>>>> Stashed changes
 variable "api_shape" {
   type        = string
   description = "Compute shape for API pool instances."
@@ -106,6 +121,21 @@ variable "api_desired_capacity" {
   default     = 1
 }
 
+<<<<<<< Updated upstream
+=======
+variable "api_boot_volume_size_in_gbs" {
+  type        = number
+  description = "Boot Volume Size in GBs."
+  default     = 50
+}
+
+variable "api_boot_volume_vpus_per_gb" {
+  type        = number
+  description = "Boot Volume VPUs per GB."
+  default     = 10
+}
+
+>>>>>>> Stashed changes
 variable "client_shape" {
   type        = string
   description = "Compute shape for client pool instances."
@@ -130,6 +160,39 @@ variable "client_desired_capacity" {
   default     = 1
 }
 
+<<<<<<< Updated upstream
+=======
+variable "client_boot_volume_size_in_gbs" {
+  type        = number
+  description = "Boot Volume Size in GBs."
+  default     = 1024
+}
+
+variable "client_boot_volume_vpus_per_gb" {
+  type        = number
+  description = "Boot Volume VPUs per GB."
+  default     = 60
+}
+
+variable "client_data_volume" {
+  type        = bool
+  description = "Create and attache Data Volume"
+  default = false
+}
+
+variable "client_data_volume_size_in_gbs" {
+  type        = number
+  description = "Data Volume Size in GBs."
+  default     = 1024
+}
+
+variable "client_data_volume_vpus_per_gb" {
+  type        = number
+  description = "Data Volume VPUs per GB."
+  default     = 60
+}
+
+>>>>>>> Stashed changes
 variable "defined_tags" {
   type        = map(string)
   description = "OCI defined tags applied to cluster resources."
