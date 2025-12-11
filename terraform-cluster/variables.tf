@@ -121,8 +121,6 @@ variable "api_desired_capacity" {
   default     = 1
 }
 
-<<<<<<< Updated upstream
-=======
 variable "api_boot_volume_size_in_gbs" {
   type        = number
   description = "Boot Volume Size in GBs."
@@ -135,7 +133,6 @@ variable "api_boot_volume_vpus_per_gb" {
   default     = 10
 }
 
->>>>>>> Stashed changes
 variable "client_shape" {
   type        = string
   description = "Compute shape for client pool instances."
@@ -192,7 +189,6 @@ variable "client_data_volume_vpus_per_gb" {
   default     = 60
 }
 
->>>>>>> Stashed changes
 variable "defined_tags" {
   type        = map(string)
   description = "OCI defined tags applied to cluster resources."
